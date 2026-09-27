@@ -3,11 +3,11 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
-    username = serializers.CharField(max_length=100)
-    email = serializers.EmailField()
-    password = serializers.CharField(max_length=100, write_only=True)
-    is_vip = serializers.BooleanField(default=False)
+    # id = serializers.IntegerField(read_only=True)
+    # username = serializers.CharField(max_length=100)
+    # email = serializers.EmailField()
+    # password = serializers.CharField(max_length=100, write_only=True)
+    # is_vip = serializers.BooleanField(default=False)
 
     def to_internal_value(self, data):
         internal_data = super().to_internal_value(data)
@@ -20,8 +20,8 @@ class UserSerializer(serializers.ModelSerializer):
 
         return representation
 
-    def create(self, validated_data):
-        return User.objects.create(**validated_data)
+    # def create(self, validated_data):
+    #     return User.objects.create(**validated_data)
 
     def validate_username(self, value):
         if len(value) < 3:

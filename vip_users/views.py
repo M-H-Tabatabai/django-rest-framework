@@ -10,7 +10,7 @@ from rest_framework import status
 # Create your views here.
 class UserAPIView(APIView):
     def get(self, request):
-        users = User.objects.all()
+        users = User.objects.filter(is_vip=True)
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data, status= status.HTTP_200_OK)
 
