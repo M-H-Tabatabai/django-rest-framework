@@ -4,21 +4,14 @@ from rest_framework.decorators import APIView
 from bookstore.models import Book
 from rest_framework import status
 
+from bookstore.serializers import BookSerializer
+
 # Create your views here.
 class bookstoreView(APIView):
     def get(self, request):
         books = Book.objects.all()
-        data = []
-        for book in books:
-            data.append({
-                "title": book.title,
-                "author": book.author,
-                "published_date": book.published_date,
-                "isbn": book.isbn,
-                "pages": book.pages,
-                "language": book.language,
-            })
-        return Response(data)
+        ser = BookSerializer(books, many=True)
+        return Response(ser.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         title = request.data.get("title")
