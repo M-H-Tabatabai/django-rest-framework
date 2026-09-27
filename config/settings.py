@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "blog_api.apps.BlogApiConfig",
     "bookstore.apps.BookstoreConfig",
+    "vip_users.apps.VipUsersConfig"
 ]
 
 MIDDLEWARE = [
