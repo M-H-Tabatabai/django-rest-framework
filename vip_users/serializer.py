@@ -2,6 +2,14 @@ from rest_framework import serializers
 from .models import User
 
 
+class usernamevalidator:
+    def __call__(self, value):
+        if len(value) < 3:
+            raise serializers.ValidationError(
+                "Username must be at least 3 characters long."
+            )
+
+
 class UserSerializer(serializers.ModelSerializer):
     # id = serializers.IntegerField(read_only=True)
     # username = serializers.CharField(max_length=100)
@@ -9,10 +17,16 @@ class UserSerializer(serializers.ModelSerializer):
     # password = serializers.CharField(max_length=100, write_only=True)
     # is_vip = serializers.BooleanField(default=False)
 
+    username = serializers.CharField(max_length=100, validators=[usernamevalidator()])
+
     bio = serializers.SerializerMethodField()
 
     def get_bio(self, instance):
-        return f"{instance.username} is a VIP user." if instance.is_vip else f"{instance.username} is not a VIP user."
+        return (
+            f"{instance.username} is a VIP user."
+            if instance.is_vip
+            else f"{instance.username} is not a VIP user."
+        )
 
     def to_internal_value(self, data):
         internal_data = super().to_internal_value(data)
@@ -27,13 +41,6 @@ class UserSerializer(serializers.ModelSerializer):
 
     # def create(self, validated_data):
     #     return User.objects.create(**validated_data)
-
-    def validate_username(self, value):
-        if len(value) < 3:
-            raise serializers.ValidationError(
-                "Username must be at least 3 characters long."
-            )
-        return value
 
     def validate_password(self, value):
         if len(value) < 8:
@@ -63,4 +70,3 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = "__all__"
-
