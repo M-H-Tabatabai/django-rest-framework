@@ -43,12 +43,16 @@ class UserSerializer(serializers.ModelSerializer):
         return value
 
     def validate(self, data):
-        if "username" not in data:
-            raise serializers.ValidationError("Username is required.")
-        if "email" not in data:
-            raise serializers.ValidationError("Email is required.")
-        if "password" not in data:
-            raise serializers.ValidationError("Password is required.")
+        if not self.partial:
+            if "username" not in data:
+                raise serializers.ValidationError("Username is required.")
+
+            if "email" not in data:
+                raise serializers.ValidationError("Email is required.")
+
+            if "password" not in data:
+                raise serializers.ValidationError("Password is required.")
+
         return data
 
     class Meta:
