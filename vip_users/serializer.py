@@ -9,6 +9,11 @@ class UserSerializer(serializers.ModelSerializer):
     # password = serializers.CharField(max_length=100, write_only=True)
     # is_vip = serializers.BooleanField(default=False)
 
+    bio = serializers.SerializerMethodField()
+
+    def get_bio(self, instance):
+        return f"{instance.username} is a VIP user." if instance.is_vip else f"{instance.username} is not a VIP user."
+
     def to_internal_value(self, data):
         internal_data = super().to_internal_value(data)
         return internal_data
@@ -57,4 +62,5 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "username", "email", "password", "is_vip"]
+        fields = "__all__"
+
