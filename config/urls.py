@@ -23,4 +23,5 @@ urlpatterns = [
     path("api/", include("blog_api.urls")),
     path("bookstore/", include("bookstore.urls")),
     path("vip-users/", include("vip_users.urls")),
+    path("bookshop/", include("bookshop.urls")),
 ]
