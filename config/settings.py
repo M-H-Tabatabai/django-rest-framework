@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "blog_api.apps.BlogApiConfig",
     "bookstore.apps.BookstoreConfig",
     "vip_users.apps.VipUsersConfig",
-    "bookshop.apps.BookshopConfig"
+    "bookshop.apps.BookshopConfig",
+    "rest_framework.authtoken"
 ]
 
 MIDDLEWARE = [
@@ -139,4 +140,11 @@ MAILERS = {
     "default": {
         "BACKEND": "django.core.mail.backends.console.EmailBackend",
     },
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
