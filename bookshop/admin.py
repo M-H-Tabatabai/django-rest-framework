@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bookshop.models import MyBook, Category, Author
+from bookshop.models import MyBook, Category, Author, BlockUserModel
 
 
 # Register your models here.
@@ -15,3 +15,6 @@ class CategoryAdmin(admin.ModelAdmin):
 class AuthorAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(BlockUserModel)
+class AuthorAdmin(admin.ModelAdmin):
+    pass

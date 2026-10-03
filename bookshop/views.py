@@ -3,6 +3,9 @@ from rest_framework.views import APIView
 from bookshop.models import MyBook
 from bookshop.serializers import MyBookSerializer
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from .permissions import BlocklistPermission
+
 
 # Create your views here.
 class MyBookApiView(APIView):
@@ -11,15 +14,19 @@ class MyBookApiView(APIView):
         ser = MyBookSerializer(books, many=True)
         return Response(ser.data)
 
-class UserInfoApiVeiew(APIView):
+
+class UserInfoApiView(APIView):
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [BlocklistPermission]
+
     def get(self, request):
         user = request.user
         return Response(
             {
-            'username': user.username,
-            'email': user.email,
-            'id': user.id,
-            'first_name': user.first_name,
-            'last_name' : user.last_name
+                "username": user.username,
+                "email": user.email,
+                "id": user.id,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
             }
-     )
+        )
