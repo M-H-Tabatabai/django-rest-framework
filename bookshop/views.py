@@ -5,6 +5,8 @@ from bookshop.serializers import MyBookSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .permissions import BlocklistPermission
+from django.shortcuts import get_object_or_404
+from rest_framework import status
 
 
 # Create your views here.
@@ -30,3 +32,21 @@ class UserInfoApiView(APIView):
                 "last_name": user.last_name,
             }
         )
+
+
+class BookManageApiView(APIView):
+    def get_object(self, pk):
+        book = get_object_or_404(MyBook, id=pk)
+        self.check_object_permissions(self.request, book)
+        return book
+
+    def get(self, request, pk):
+        book = self.get_object(pk)
+        ser = MyBookSerializer(book)
+        return Response(ser.data)
+
+    def delete(self, request, pk):
+        book = self.get_object(pk)
+        book.delete()
+        return Response({"message":"Book deleted"}, status=status.HTTP_204_NO_CONTENT)
+         

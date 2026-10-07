@@ -1,8 +1,8 @@
-from rest_framework import permissions
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 from bookshop.models import BlockUserModel
 
 
-class BlocklistPermission(permissions.BasePermission):
+class BlocklistPermission(BasePermission):
     """
     Global permission check for blocked IPs.
     """
