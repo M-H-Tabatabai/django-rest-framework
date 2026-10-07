@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     "bookstore.apps.BookstoreConfig",
     "vip_users.apps.VipUsersConfig",
     "bookshop.apps.BookshopConfig",
-    "rest_framework.authtoken"
+    "rest_framework.authtoken",
+    "rest_framework_simplejwt",
 ]
 
 MIDDLEWARE = [
@@ -79,13 +80,13 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_project_db',
-        'USER': 'postgres',
-        'PASSWORD': '123456789',
-        'HOST': 'localhost',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "django_project_db",
+        "USER": "postgres",
+        "PASSWORD": "123456789",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 # DATABASES = {
@@ -144,7 +145,7 @@ MAILERS = {
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ]
 }
