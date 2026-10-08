@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import BlocklistPermission
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
 
 # Create your views here.
@@ -64,3 +65,7 @@ class LogoutApiView(APIView):
                 pass
 
         return Response({"message":"Logout success"}, status=status.HTTP_205_RESET_CONTENT)
+
+class BookModelViewSet(ModelViewSet):
+    queryset = MyBook.objects.all()
+    serializer_class = MyBookSerializer
